@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  frontend:
+    build: ./react_frontend
+    volumes:
+      - './react_frontend:/react_app'
+      - '/react_app/node_modules'
+    environment:
+      - NODE_ENV=development
+
+  backend:
+    build: ./flask_backend
+    command: python -m flask run
+    depends_on:
+      - db
+    volumes:
+      # - ${DATASETS_PATH}:/datasets
+      - './flask_backend:/flask_backend'
+      - './Data:/Data'
+    ports:
+      - '8000:8000'
+    environment: 
+      - FLASK_APP=main.py
+
+  db:
+    image: mysql:5.7
+    environment: 
+      - MYSQL_USER=vitaly
+      - MYSQL_PASSWORD=12345678
+      - MYSQL_ROOT_PASSWORD=0
+      - MYSQL_DATABASE=cadre
