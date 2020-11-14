@@ -8,10 +8,14 @@ services:
       - '/react_app/node_modules'
     environment:
       - NODE_ENV=development
+      - REACT_APP_BACKEND_BASEURL=http://localhost:5000
+    ports:
+      - 3000:3000
+    stdin_open: true
 
   backend:
     build: ./flask_backend
-    command: python -m flask run
+    command: python -m flask run -h 0.0.0.0 -p 5000
     depends_on:
       - db
     volumes:
@@ -19,12 +23,16 @@ services:
       - './flask_backend:/flask_backend'
       - './Data:/Data'
     ports:
-      - '8000:8000'
+      - 5000:5000
     environment: 
       - FLASK_APP=main.py
+      - FLASK_ENV=development
 
   db:
     image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    volumes:
+      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf
     environment: 
       - MYSQL_USER=vitaly
       - MYSQL_PASSWORD=12345678

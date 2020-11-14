@@ -7,9 +7,7 @@ from models.vacancy import Vacancy
 from models.profession import Profession
 from sqlalchemy.orm.collections import InstrumentedList
 
-if __name__ == "__main__":
-    app.app_context().push()
-    year = 2018
+def parse(year):
     data = pd.read_excel("/Data/ВакансииНаКонец" + str(year) + ".xlsx", sheet_name='ОКВЭД+Профессии')
     print(data[data.columns[0]].size)
     lst = []
@@ -53,3 +51,9 @@ if __name__ == "__main__":
         #lst.append(obj)
     db.session.commit()
     #print(lst)
+
+if __name__ == "__main__":
+    app.app_context().push()
+    parse(2017)
+    parse(2018)
+    parse(2019)

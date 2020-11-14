@@ -1,0 +1,4 @@
+export const SectionsActionTypes = {
+  SET_SECTIONS: 'SET_SECTIONS',
+  RESET_SECTIONS_STATE: 'RESET_SECTIONS_STATE',
+};

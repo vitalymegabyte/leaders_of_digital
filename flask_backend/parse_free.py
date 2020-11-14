@@ -7,9 +7,8 @@ from models.profession import Profession
 from models.jobless import Jobless
 from sqlalchemy.orm.collections import InstrumentedList
 
-if __name__ == "__main__":
-    app.app_context().push()
-    year = 2019
+
+def parse(year):
     data = pd.read_excel("/Data/БезработныеНаКонец" + str(year) + ".xlsx", sheet_name='ОКВЭД+Профессия')
     print(data[data.columns[0]].size)
     lst = []
@@ -53,3 +52,10 @@ if __name__ == "__main__":
         #lst.append(obj)
     db.session.commit()
     #print(lst)
+    
+if __name__ == "__main__":
+    app.app_context().push()
+    parse(2017)
+    parse(2018)
+    parse(2019)
+    
