@@ -7,3 +7,8 @@ export const StyledTable = styled(Table).attrs((props) => ({
 }))`
   text-align: left;
 `;
+
+export const StyledLink = styled.a`
+  cursor: pointer;
+  color: blue;
+`;

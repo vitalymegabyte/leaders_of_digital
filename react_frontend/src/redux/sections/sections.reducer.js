@@ -2,6 +2,7 @@ import { SectionsActionTypes } from './sections.types';
 
 const initialState = {
   sections: [],
+  professions: [],
 };
 
 const SectionsReducer = (state = initialState, { type, payload }) => {
@@ -13,7 +14,11 @@ const SectionsReducer = (state = initialState, { type, payload }) => {
         ...state,
         sections: payload,
       };
-
+    case SectionsActionTypes.SET_PROFESSIONS:
+      return {
+        ...state,
+        professions: payload,
+      };
     default:
       return state;
   }

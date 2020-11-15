@@ -23,10 +23,11 @@ def parse(year):
             sectionName = i
     print(sectionName, vacancyName, summaryCol)
     currentSection = None
+    forbidden = ['Общий итог', 'Класс']
     for i in range(3, data[data.columns[0]].size):
         #if data[summaryCol][i] != 
         result = None
-        if not pd.isnull(data[sectionName][i]) and not data[sectionName][i].endswith('Итог'):
+        if not pd.isnull(data[sectionName][i]) and not data[sectionName][i].endswith('Итог') and not data[sectionName][i].strip() in forbidden:
             section = Section.query.filter_by(name=data[sectionName][i]).first()
             if not section:
                 section = Section(name=data[sectionName][i].encode())
@@ -47,7 +48,7 @@ def parse(year):
                     vacancy = Vacancy(profession=profession, number=int(data[summaryCol][i]), year=year)
                     db.session.add(vacancy)
                 currentSection.vacancies.append(vacancy)
-                print(obj)
+                #print(obj)
         #lst.append(obj)
     db.session.commit()
     #print(lst)

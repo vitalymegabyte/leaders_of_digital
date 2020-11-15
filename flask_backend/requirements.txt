@@ -8,3 +8,4 @@ pymysql
 flask_marshmallow
 marshmallow-sqlalchemy
 flask_cors
+flask_restful
